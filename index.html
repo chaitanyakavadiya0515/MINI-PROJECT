@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySprout - Student Life & Finance Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --clay-radius: 28px;
+    }
+    body {
+      background: linear-gradient(135deg, #F5F1EB 0%, #E8E2D8 100%);
+      color: #334155;
+      font-family: 'Quicksand', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Fredoka', cursive, system-ui, sans-serif;
+    }
+
+    /* Tactile Claymorphism Layered Shadows */
+    .clay-card {
+      border-radius: var(--clay-radius);
+      box-shadow: 
+        12px 14px 28px rgba(166, 175, 195, 0.42),
+        -10px -10px 24px rgba(255, 255, 255, 0.9),
+        inset 3px 3px 6px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 8px rgba(166, 175, 195, 0.22);
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .clay-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .clay-btn {
+      border-radius: 18px;
+      box-shadow: 
+        5px 6px 12px rgba(166, 175, 195, 0.4),
+        -4px -4px 10px rgba(255, 255, 255, 0.8),
+        inset 2px 2px 4px rgba(255, 255, 255, 0.7),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.08);
+      transition: all 0.15s ease-out;
+    }
+    .clay-btn:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: brightness(1.02);
+    }
+    .clay-btn:active {
+      transform: translateY(2px) scale(0.96);
+      box-shadow: 
+        2px 2px 5px rgba(166, 175, 195, 0.4),
+        inset 3px 3px 5px rgba(0, 0, 0, 0.12);
+    }
+
+    .clay-inset {
+      border-radius: 18px;
+      box-shadow: 
+        inset 4px 4px 8px rgba(166, 175, 195, 0.35),
+        inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.48);
+    }
+
+    /* Clay Color Palette */
+    .clay-matcha { background-color: #E6F5EC; }
+    .clay-strawberry { background-color: #FDE8ED; }
+    .clay-peach { background-color: #FDEFE6; }
+    .clay-lilac { background-color: #EFEBF9; }
+    .clay-sky { background-color: #E4F1FB; }
+    .clay-butter { background-color: #FEF9D9; }
+    .clay-white { background-color: #FAF8F5; }
+
+    /* Bobbing Animation */
+    @keyframes bobbing {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .animate-bob {
+      animation: bobbing 3.8s ease-in-out infinite;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+  </style>
+</head>
+<body class="p-3 sm:p-6 antialiased selection:bg-pink-200">
+
+  <!-- ========================================== -->
+  <!-- SCREEN 0: INTERACTIVE LANDING PAGE         -->
+  <!-- ========================================== -->
+  <div id="screenLanding" class="max-w-5xl mx-auto py-8 sm:py-14 space-y-10">
+    <!-- Hero Box -->
+    <div class="clay-card clay-white p-7 sm:p-12 text-center relative overflow-hidden space-y-6">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full clay-butter text-amber-900 text-xs font-black uppercase tracking-wider animate-bob">
+        <span>✨</span><span>The Ultimate Student Command Center</span>
+      </div>
+
+      <div class="space-y-3 max-w-2xl mx-auto">
+        <h1 class="text-4xl sm:text-6xl font-black text-slate-800 tracking-tight leading-tight">
+          Master Your <span class="text-pink-600">Money</span> & Conquer Your <span class="text-purple-600">Studies</span>.
+        </h1>
+        <p class="text-slate-600 font-bold text-sm sm:text-base leading-relaxed">
+          Tactile clay design built for students. Plan allowances, track daily spending, schedule assignments, study with Pomodoro focus, and learn early investing habits.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <button onclick="enterApplication()" class="clay-btn px-8 py-3.5 bg-purple-300 text-purple-950 font-black text-sm flex items-center space-x-2">
+          <span>Get Started Free</span>
+          <span>➔</span>
+        </button>
+        <button onclick="showMotivationPreview()" class="clay-btn px-6 py-3.5 bg-white text-slate-700 font-bold text-sm flex items-center space-x-1.5">
+          <span>💡</span>
+          <span>Daily Wisdom</span>
+        </button>
+      </div>
+
+      <!-- Live Daily Quote Strip -->
+      <div class="p-4 clay-inset max-w-xl mx-auto text-xs font-bold text-slate-600 flex items-center justify-center space-x-2">
+        <span class="text-lg">🌱</span>
+        <span id="landingQuote">"Do not save what is left after spending, but spend what is left after saving."</span>
+      </div>
+    </div>
+
+    <!-- 3 Clay Feature Teaser Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="clay-card clay-matcha p-6 space-y-3">
+        <div class="w-12 h-12 rounded-2xl clay-card clay-white flex items-center justify-center text-2xl">💰</div>
+        <h3 class="text-base font-black text-emerald-950">Daily Budget Flow</h3>
+        <p class="text-xs font-bold text-emerald-800/80 leading-relaxed">
+          Dynamic daily spending room that recalculates itself every midnight. Set category caps and fund your dream wishlist jars.
+        </p>
+      </div>
+
+      <div class="clay-card clay-sky p-6 space-y-3">
+        <div class="w-12 h-12 rounded-2xl clay-card clay-white flex items-center justify-center text-2xl">📚</div>
+        <h3 class="text-base font-black text-sky-950">3-Tier Study Planner</h3>
+        <p class="text-xs font-bold text-sky-800/80 leading-relaxed">
+          Daily bite-sized focus, weekly milestone checks, and monthly exam targets backed by a tactile 25-min Pomodoro timer.
+        </p>
+      </div>
+
+      <div class="clay-card clay-peach p-6 space-y-3">
+        <div class="w-12 h-12 rounded-2xl clay-card clay-white flex items-center justify-center text-2xl">📈</div>
+        <h3 class="text-base font-black text-amber-950">Invest & Learn</h3>
+        <p class="text-xs font-bold text-amber-900/80 leading-relaxed">
+          Interactive compound calculators, student micro-investment guides, and digestible blogs on discipline & beat-the-burnout strategies.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCREEN 1: ONBOARDING SETUP MODAL           -->
+  <!-- ========================================== -->
+  <div id="screenSetup" class="max-w-md mx-auto my-10 space-y-4 hidden">
+    <div class="clay-card clay-peach p-6 sm:p-8 space-y-5">
+      <div class="flex items-center space-x-3">
+        <span class="w-12 h-12 rounded-2xl clay-card clay-white flex items-center justify-center text-2xl animate-bob">🌸</span>
+        <div>
+          <h1 class="text-2xl font-black text-slate-800 tracking-tight">StudySprout</h1>
+          <p class="text-xs text-amber-900/70 font-bold uppercase tracking-wider">Quick Setup</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs font-bold">
+        <div class="space-y-1.5">
+          <label class="text-slate-700">Monthly Pocket Money / Allowance</label>
+          <div class="flex items-center clay-inset px-4 py-2.5">
+            <span class="font-black text-amber-800 mr-2 text-base" id="setupCurr1">₹</span>
+            <input type="number" id="setupInpAllowance" min="0" step="100" placeholder="0" oninput="updateSetupPreview()" class="w-full font-black text-slate-800 text-sm bg-transparent focus:outline-none text-right">
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-slate-700">Target Monthly Savings</label>
+            <div class="flex items-center space-x-1.5">
+              <button onclick="applySetupSavings(10)" class="clay-btn px-2.5 py-1 bg-white text-amber-900 text-[11px] font-extrabold">10%</button>
+              <button onclick="applySetupSavings(20)" class="clay-btn px-2.5 py-1 bg-white text-amber-900 text-[11px] font-extrabold">20%</button>
+              <button onclick="applySetupSavings(30)" class="clay-btn px-2.5 py-1 bg-white text-amber-900 text-[11px] font-extrabold">30%</button>
+            </div>
+          </div>
+          <div class="flex items-center clay-inset px-4 py-2.5">
+            <span class="font-black text-pink-700 mr-2 text-base" id="setupCurr2">₹</span>
+            <input type="number" id="setupInpSavings" min="0" step="50" placeholder="0" oninput="updateSetupPreview()" class="w-full font-black text-slate-800 text-sm bg-transparent focus:outline-none text-right">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div class="space-y-1.5">
+            <label class="text-slate-700">Days in Cycle</label>
+            <input type="number" id="setupInpDays" min="1" max="365" value="30" oninput="updateSetupPreview()" class="w-full clay-inset py-2.5 px-3 font-black text-slate-800 text-xs text-center focus:outline-none">
+          </div>
+          <div class="space-y-1.5">
+            <label class="text-slate-700">Currency</label>
+            <select id="setupCurrSelect" onchange="setSetupCurrency(this.value)" class="w-full clay-inset py-2.5 px-3 font-black text-slate-800 text-xs focus:outline-none">
+              <option value="₹" selected>₹ INR</option>
+              <option value="$">$ USD</option>
+              <option value="€">€ EUR</option>
+              <option value="£">£ GBP</option>
+              <option value="C$">C$ CAD</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="p-3.5 clay-inset flex items-center justify-between text-xs">
+          <span class="text-slate-600 font-bold">Safe Daily Allowance:</span>
+          <span class="font-black text-amber-950 text-sm" id="setupPreviewPill">₹0.00/day</span>
+        </div>
+
+        <button onclick="launchBudgetDiary()" class="clay-btn w-full py-3.5 bg-amber-300 text-amber-950 font-black text-sm flex items-center justify-center space-x-2 mt-3">
+          <span>Enter Dashboard</span>
+          <span>✨</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCREEN 2: MAIN DASHBOARD                   -->
+  <!-- ========================================== -->
+  <div id="screenDashboard" class="max-w-5xl mx-auto space-y-4 hidden">
+    
+    <!-- Top Header Bar -->
+    <header class="clay-card clay-white p-4 sm:p-5 flex flex-wrap gap-3 items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span onclick="showScreen(0)" class="w-12 h-12 rounded-2xl clay-card clay-lilac flex items-center justify-center text-2xl animate-bob cursor-pointer" title="Return to Landing Page">🌸</span>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-xl font-black text-slate-800 tracking-tight">StudySprout</h1>
+            <span class="text-[11px] font-black px-2.5 py-0.5 rounded-full clay-butter text-amber-950" id="cycleBadge">Day 1 of 30</span>
+          </div>
+          <div class="flex items-center space-x-2 mt-1">
+            <span class="text-[10px] font-black uppercase text-purple-700" id="userLevelBadge">Lv. 1 Sprout</span>
+            <div class="w-24 clay-inset h-2 overflow-hidden rounded-full">
+              <div id="userXpBar" class="bg-gradient-to-r from-purple-400 to-pink-400 h-full rounded-full transition-all duration-300" style="width: 20%;"></div>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400" id="userXpText">20/100 XP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navigation Tabs -->
+      <div class="flex items-center clay-inset p-1.5 rounded-2xl space-x-1.5 text-xs font-black flex-wrap">
+        <button onclick="switchTab('budget')" id="tabBtnBudget" class="clay-btn px-3.5 py-2 bg-white text-purple-950 font-black">💰 Budget</button>
+        <button onclick="switchTab('study')" id="tabBtnStudy" class="clay-btn px-3.5 py-2 bg-transparent text-slate-500 font-bold hover:text-purple-900">📚 Study</button>
+        <button onclick="switchTab('invest')" id="tabBtnInvest" class="clay-btn px-3.5 py-2 bg-transparent text-slate-500 font-bold hover:text-purple-900">🌱 Invest & Learn</button>
+      </div>
+
+      <!-- Quick Action Palette -->
+      <div class="flex items-center space-x-2">
+        <button onclick="toggleAiDrawer()" class="clay-btn px-3.5 py-2 bg-purple-200 text-purple-950 font-black text-xs flex items-center space-x-1.5" title="Open AI Study & Budget Mentor">
+          <span>✨</span>
+          <span class="hidden sm:inline">AI Mentor</span>
+        </button>
+        <button id="mainActionBtn" onclick="openModal('logSpendModal')" class="clay-btn px-4 py-2 bg-pink-300 text-pink-950 font-black text-xs flex items-center space-x-1">
+          <span>+</span>
+          <span id="mainActionBtnText">Log Spend</span>
+        </button>
+        <button onclick="openModal('settingsModal')" class="clay-btn p-2.5 bg-white text-slate-700" title="Settings">
+          <span>⚙️</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- VIEW A: CLAY BUDGET DASHBOARD              -->
+    <!-- ========================================== -->
+    <div id="viewBudget" class="space-y-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div class="clay-card clay-matcha p-4 space-y-1">
+          <div class="text-[11px] font-black uppercase tracking-wider text-emerald-800">Daily Allowance</div>
+          <div class="text-xl sm:text-2xl font-black text-emerald-950" id="dispTodayAllowance">₹0.00</div>
+          <div class="text-xs font-bold text-emerald-700" id="dispTodayLeft">Left: ₹0.00</div>
+        </div>
+
+        <div class="clay-card clay-strawberry p-4 space-y-1">
+          <div class="text-[11px] font-black uppercase tracking-wider text-pink-800">Spent Today</div>
+          <div class="text-xl sm:text-2xl font-black text-pink-950" id="dispSpentToday">₹0.00</div>
+          <div class="text-xs font-bold text-pink-600">Daily Reset at 12 AM</div>
+        </div>
+
+        <div class="clay-card clay-butter p-4 space-y-1">
+          <div class="text-[11px] font-black uppercase tracking-wider text-amber-900">Savings Stash</div>
+          <div class="text-xl sm:text-2xl font-black text-amber-950" id="dispSavingsStash">₹0.00</div>
+          <div class="text-xs font-bold text-amber-700">Protected Goal</div>
+        </div>
+
+        <div class="clay-card clay-sky p-4 space-y-1">
+          <div class="text-[11px] font-black uppercase tracking-wider text-sky-900">Remaining Pool</div>
+          <div class="text-xl sm:text-2xl font-black text-sky-950" id="dispRemainingPool">₹0.00</div>
+          <div class="text-xs font-bold text-sky-700" id="dispTotalSpent">Spent: ₹0.00</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="clay-card clay-peach p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-950 flex items-center space-x-2">
+                <span>☕</span><span>Today's Spending Room</span>
+              </span>
+              <span class="text-xs font-black text-amber-900" id="bobaSafeAmount">₹0.00 Left</span>
+            </div>
+            <div class="w-full clay-inset h-3.5 overflow-hidden rounded-full">
+              <div id="bobaBar" class="bg-amber-400 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold text-amber-900/80 pt-1 border-t border-amber-200/50">
+              <span>Needs: <strong id="valNeeds">₹0.00</strong></span>
+              <span>Wants: <strong id="valWants">₹0.00</strong></span>
+            </div>
+          </div>
+
+          <div class="clay-card clay-sky p-5 space-y-3.5">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xs font-black text-sky-950 uppercase tracking-wider">Expense Diary</h2>
+              <div class="flex items-center space-x-2">
+                <input type="text" id="diarySearch" oninput="renderDiary()" placeholder="Search..." class="px-3 py-1.5 text-xs rounded-xl clay-inset focus:outline-none w-28 sm:w-36 font-bold">
+                <select id="diaryCategoryFilter" onchange="renderDiary()" class="px-2 py-1.5 text-xs rounded-xl clay-inset focus:outline-none font-bold text-sky-950">
+                  <option value="all">All</option>
+                  <option value="food">🍱 Food</option>
+                  <option value="study">📖 Study</option>
+                  <option value="housing">🏠 Rent</option>
+                  <option value="transit">🚇 Transit</option>
+                  <option value="fun">🎉 Fun</option>
+                  <option value="tech">💻 Tech</option>
+                </select>
+              </div>
+            </div>
+            <div id="diaryListContainer" class="space-y-2 max-h-72 overflow-y-auto pr-1"></div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-4">
+          <div class="clay-card clay-lilac p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xs font-black text-purple-950 uppercase tracking-wider">Category Limits</h2>
+              <span class="text-[11px] font-bold text-purple-800">Tap number to edit</span>
+            </div>
+            <div id="categoryCardsList" class="space-y-2.5"></div>
+          </div>
+
+          <div class="clay-card clay-strawberry p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xs font-black text-pink-950 uppercase tracking-wider">Wishlist Jars</h2>
+              <button onclick="openModal('addJarModal')" class="clay-btn px-2.5 py-1 bg-white text-pink-900 text-xs font-black">+ New Jar</button>
+            </div>
+            <div id="savingsJarsList" class="space-y-2.5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW B: CLAY STUDY SUITE & POMODORO        -->
+    <!-- ========================================== -->
+    <div id="viewStudy" class="space-y-4 hidden">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <!-- Pomodoro Focus Widget -->
+        <div class="md:col-span-5 clay-card clay-matcha p-5 space-y-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">🍅</span>
+              <h3 class="text-sm font-black text-emerald-950 uppercase tracking-wide">Focus Pomodoro</h3>
+            </div>
+            <span id="pomoPhaseText" class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full clay-inset text-emerald-900">Study Session</span>
+          </div>
+
+          <div class="text-center py-2">
+            <div id="pomoTimerDisplay" class="text-5xl font-black text-emerald-950 font-display tracking-wider">25:00</div>
+            <p class="text-xs font-bold text-emerald-800/80 mt-1" id="pomoStreakLabel">Completed sessions: 0</p>
+          </div>
+
+          <div class="flex items-center justify-center space-x-2">
+            <button id="pomoToggleBtn" onclick="togglePomodoro()" class="clay-btn px-5 py-2 bg-emerald-300 text-emerald-950 font-black text-xs">Start Focus</button>
+            <button onclick="resetPomodoro()" class="clay-btn px-3 py-2 bg-white text-emerald-900 font-bold text-xs">Reset</button>
+          </div>
+        </div>
+
+        <!-- Study Goal Counters -->
+        <div class="md:col-span-7 grid grid-cols-3 gap-3">
+          <div class="clay-card clay-sky p-4 flex flex-col justify-between">
+            <div class="text-[11px] font-black uppercase tracking-wider text-sky-900">Daily Checklist</div>
+            <div class="text-2xl font-black text-sky-950 my-1" id="studyStatDaily">0/0</div>
+            <div class="text-[11px] font-bold text-sky-700">Tasks checked</div>
+          </div>
+          <div class="clay-card clay-butter p-4 flex flex-col justify-between">
+            <div class="text-[11px] font-black uppercase tracking-wider text-amber-900">Weekly Goals</div>
+            <div class="text-2xl font-black text-amber-950 my-1" id="studyStatWeekly">0</div>
+            <div class="text-[11px] font-bold text-amber-700">Milestones due</div>
+          </div>
+          <div class="clay-card clay-peach p-4 flex flex-col justify-between">
+            <div class="text-[11px] font-black uppercase tracking-wider text-amber-950">Exams / Finals</div>
+            <div class="text-2xl font-black text-amber-950 my-1" id="studyStatMonthly">0</div>
+            <div class="text-[11px] font-bold text-amber-800">Big horizons</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Columns: Daily, Weekly, Monthly Planners -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="clay-card clay-white p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-200/80 pb-2.5">
+            <span class="text-sm font-black text-slate-800 flex items-center space-x-1.5">
+              <span>🌱</span><span>Daily Priority</span>
+            </span>
+            <button onclick="openStudyTaskModal('daily')" class="clay-btn px-2.5 py-1 bg-emerald-200 text-emerald-950 font-black text-xs">+ Task</button>
+          </div>
+          <div id="dailyStudyList" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+        </div>
+
+        <div class="clay-card clay-sky p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-sky-200/80 pb-2.5">
+            <span class="text-sm font-black text-sky-950 flex items-center space-x-1.5">
+              <span>📅</span><span>Weekly Milestones</span>
+            </span>
+            <button onclick="openStudyTaskModal('weekly')" class="clay-btn px-2.5 py-1 bg-sky-200 text-sky-950 font-black text-xs">+ Goal</button>
+          </div>
+          <div id="weeklyStudyList" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+        </div>
+
+        <div class="clay-card clay-peach p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-200/80 pb-2.5">
+            <span class="text-sm font-black text-amber-950 flex items-center space-x-1.5">
+              <span>🏆</span><span>Monthly Exams</span>
+            </span>
+            <button onclick="openStudyTaskModal('monthly')" class="clay-btn px-2.5 py-1 bg-amber-200 text-amber-950 font-black text-xs">+ Exam</button>
+          </div>
+          <div id="monthlyStudyList" class="space-y-2 max-h-96 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW C: GROW & INVEST + MOTIVATIONAL BLOGS -->
+    <!-- ========================================== -->
+    <div id="viewInvest" class="space-y-6 hidden">
+      
+      <!-- Micro-Investing for Students Header -->
+      <div class="clay-card clay-peach p-6 sm:p-7 space-y-4">
+        <div class="flex items-center space-x-3">
+          <span class="w-12 h-12 rounded-2xl clay-card clay-white flex items-center justify-center text-2xl">🌱</span>
+          <div>
+            <h2 class="text-xl font-black text-amber-950">Student Micro-Investing 101</h2>
+            <p class="text-xs font-bold text-amber-800/80">Start with pocket change. Let compounding do the heavy lifting.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-2">
+          <div class="clay-inset p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-950">Index Funds & SIPs</span>
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-matcha text-emerald-900">Low Risk</span>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-600">Start with as little as ₹100 or $10/month. Tracks top 50 reliable companies so you don't pick individual stocks.</p>
+          </div>
+
+          <div class="clay-inset p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-950">High-Yield RD / Cash Stash</span>
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-sky text-sky-950">Zero Risk</span>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-600">Lock your pocket money surplus into recurring deposits. Earn 6.5–7.5% annual return with zero market panic.</p>
+          </div>
+
+          <div class="clay-inset p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-950">Emergency Cushion</span>
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-strawberry text-pink-900">Rule #1</span>
+            </div>
+            <p class="text-[11px] font-semibold text-slate-600">Keep 1 month of living pocket money untouched before investing in risky assets or crypto.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Compound Growth Calculator -->
+      <div class="clay-card clay-white p-6 sm:p-7 space-y-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-black text-slate-800">Compounding Visualizer</h3>
+            <p class="text-xs font-bold text-slate-500">What happens if you invest pocket savings each month?</p>
+          </div>
+          <span class="text-xl">📊</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold">
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-slate-600">
+              <span>Monthly Investment</span>
+              <span id="calcAmtLabel" class="text-purple-900 font-black">₹500</span>
+            </div>
+            <input type="range" id="calcMonthlyInp" min="100" max="10000" step="100" value="500" oninput="runCalculator()" class="w-full accent-purple-600">
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-slate-600">
+              <span>Expected Annual Return</span>
+              <span id="calcRateLabel" class="text-purple-900 font-black">12%</span>
+            </div>
+            <input type="range" id="calcRateInp" min="4" max="18" step="1" value="12" oninput="runCalculator()" class="w-full accent-purple-600">
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-slate-600">
+              <span>Time Period</span>
+              <span id="calcYearsLabel" class="text-purple-900 font-black">5 Years</span>
+            </div>
+            <input type="range" id="calcYearsInp" min="1" max="15" step="1" value="5" oninput="runCalculator()" class="w-full accent-purple-600">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 clay-inset text-center">
+          <div>
+            <span class="text-[11px] font-bold text-slate-500">Total Invested</span>
+            <div class="text-lg font-black text-slate-800" id="calcTotalInvested">₹30,000</div>
+          </div>
+          <div>
+            <span class="text-[11px] font-bold text-slate-500">Est. Growth / Wealth</span>
+            <div class="text-lg font-black text-emerald-700" id="calcEstimatedProfit">₹11,249</div>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <span class="text-[11px] font-bold text-slate-500">Total Maturity Value</span>
+            <div class="text-lg font-black text-purple-900" id="calcTotalValue">₹41,249</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curated Motivational Student Blogs -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-base font-black text-slate-800">Student Mindset & Discipline Digest</h3>
+            <p class="text-xs font-bold text-slate-500">Quick 2-minute reads to reset focus & stop spending guilt</p>
+          </div>
+          <span class="text-xl">☕</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Article 1 -->
+          <div class="clay-card clay-matcha p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-white text-emerald-900">Psychology • 2 min</span>
+              <h4 class="text-sm font-black text-emerald-950">The 48-Hour Cart Rule</h4>
+              <p class="text-xs font-semibold text-emerald-900/80 leading-relaxed">
+                When you crave buying clothes or games, add it to your wishlist jar instead. 70% of dopamine fades after 48 hours, saving you thousands.
+              </p>
+            </div>
+            <button onclick="readBlogModal(1)" class="clay-btn px-3 py-1.5 bg-white text-emerald-900 text-xs font-black self-start">Read Takeaways ➔</button>
+          </div>
+
+          <!-- Article 2 -->
+          <div class="clay-card clay-sky p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-white text-sky-950">Study Habits • 3 min</span>
+              <h4 class="text-sm font-black text-sky-950">Active Recall vs. Re-reading</h4>
+              <p class="text-xs font-semibold text-sky-900/80 leading-relaxed">
+                Highlighting notes creates an "illusion of competence." Closing your notebook and reciting answers yields 2.5x better retention during finals.
+              </p>
+            </div>
+            <button onclick="readBlogModal(2)" class="clay-btn px-3 py-1.5 bg-white text-sky-950 text-xs font-black self-start">Read Strategy ➔</button>
+          </div>
+
+          <!-- Article 3 -->
+          <div class="clay-card clay-strawberry p-5 space-y-3 flex flex-col justify-between">
+            <div class="space-y-2">
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full clay-white text-pink-900">Life Design • 2 min</span>
+              <h4 class="text-sm font-black text-pink-950">The No-Spend Weekend</h4>
+              <p class="text-xs font-semibold text-pink-900/80 leading-relaxed">
+                Dedicate one weekend per month to zero discretionary spending. Cook in the dorm, study together, and watch your monthly allowance rebound!
+              </p>
+            </div>
+            <button onclick="readBlogModal(3)" class="clay-btn px-3 py-1.5 bg-white text-pink-900 text-xs font-black self-start">Explore Guide ➔</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- DRAWER: CLAY AI MENTOR                     -->
+  <!-- ========================================== -->
+  <div id="aiDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-sm clay-card clay-white p-6 transform translate-x-full transition-transform duration-300 flex flex-col justify-between shadow-2xl">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl animate-bob">🤖</span>
+          <div>
+            <h3 class="font-black text-slate-800 text-base">Sprout AI Mentor</h3>
+            <p class="text-[10px] font-bold text-purple-700">Holistic Study & Budget Intelligence</p>
+          </div>
+        </div>
+        <button onclick="toggleAiDrawer()" class="clay-btn p-1.5 bg-white text-slate-400 hover:text-slate-700 font-bold">&times;</button>
+      </div>
+
+      <div class="flex flex-wrap gap-1.5">
+        <button onclick="runAiInsight('review')" class="clay-btn px-2.5 py-1 bg-purple-100 text-purple-900 text-[11px] font-bold">📊 Check Health</button>
+        <button onclick="runAiInsight('saveTip')" class="clay-btn px-2.5 py-1 bg-amber-100 text-amber-900 text-[11px] font-bold">💡 Saving Hacks</button>
+        <button onclick="runAiInsight('studySchedule')" class="clay-btn px-2.5 py-1 bg-emerald-100 text-emerald-900 text-[11px] font-bold">⚡ Exam Strategy</button>
+      </div>
+
+      <div id="aiMessageFeed" class="clay-inset p-3.5 space-y-3 h-80 overflow-y-auto text-xs font-semibold leading-relaxed">
+        <div class="p-2.5 rounded-2xl bg-white/90 text-slate-700 border border-purple-100">
+          Hello! I am your companion. I constantly watch your budget pool and syllabus obligations. Tap any button above or ask me for study recommendations!
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-3">
+      <div class="flex items-center clay-inset p-1 rounded-2xl">
+        <input type="text" id="aiUserInput" placeholder="Ask AI mentor anything..." class="w-full bg-transparent px-3 py-2 text-xs font-bold focus:outline-none" onkeypress="if(event.key === 'Enter') handleAiSend()">
+        <button onclick="handleAiSend()" class="clay-btn px-3 py-2 bg-purple-300 text-purple-950 font-black text-xs">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Backdrop for Drawer & Modals -->
+  <div id="modalBackdrop" class="fixed inset-0 bg-stone-900/25 backdrop-blur-xs z-40 hidden" onclick="closeAllModals()"></div>
+
+  <!-- ========================================== -->
+  <!-- MODALS (Spend, Add Task, Settings, Blogs)  -->
+  <!-- ========================================== -->
+  <!-- Modal: Log Spend -->
+  <div id="logSpendModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 pointer-events-none hidden">
+    <div class="clay-card clay-strawberry max-w-xs w-full p-5 space-y-3.5 pointer-events-auto">
+      <div class="flex items-center justify-between border-b border-pink-200 pb-2">
+        <h4 class="text-xs font-black text-slate-800">Log Spend</h4>
+        <button onclick="closeModal('logSpendModal')" class="clay-btn px-2 py-0.5 bg-white text-slate-400 font-bold">&times;</button>
+      </div>
+      <div class="space-y-2.5 text-xs font-bold">
+        <div>
+          <label class="block text-slate-700 mb-1">Expense Description</label>
+          <input type="text" id="newSpendTitle" placeholder="e.g. Canteen lunch" class="w-full px-3 py-2 rounded-xl clay-inset focus:outline-none font-semibold">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-700 mb-1">Amount</label>
+            <input type="number" id="newSpendAmount" placeholder="100" class="w-full px-3 py-2 rounded-xl clay-inset focus:outline-none font-black text-slate-800">
+          </div>
+          <div>
+            <label class="block text-slate-700 mb-1">Category</label>
+            <select id="newSpendCategory" class="w-full px-2 py-2 rounded-xl clay-inset font-bold">
+              <option value="food">🍱 Food</option>
+              <option value="study">📖 Study</option>
+              <option value="housing">🏠 Rent</option>
+              <option value="transit">🚇 Transit</option>
+              <option value="fun">🎉 Fun</option>
+              <option value="tech">💻 Tech</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3 pt-1">
+          <label class="flex items-center space-x-1 cursor-pointer">
+            <input type="radio" name="newSpendTag" value="Need" checked class="text-sky-600">
+            <span class="text-slate-700">Need</span>
+          </label>
+          <label class="flex items-center space-x-1 cursor-pointer">
+            <input type="radio" name="newSpendTag" value="Want" class="text-pink-600">
+            <span class="text-slate-700">Want</span>
+          </label>
+        </div>
+        <div class="pt-2 flex justify-end space-x-2 border-t border-pink-200">
+          <button onclick="closeModal('logSpendModal')" class="clay-btn px-3 py-1.5 bg-white text-slate-600">Cancel</button>
+          <button onclick="submitNewSpend()" class="clay-btn px-4 py-1.5 bg-pink-300 text-pink-950 font-black">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Study Task -->
+  <div id="studyTaskModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 pointer-events-none hidden">
+    <div class="clay-card clay-lilac max-w-sm w-full p-5 space-y-3.5 pointer-events-auto">
+      <div class="flex items-center justify-between border-b border-purple-200 pb-2">
+        <h4 class="text-xs font-black text-slate-800" id="studyModalHeading">Add Study Task</h4>
+        <button onclick="closeModal('studyTaskModal')" class="clay-btn px-2 py-0.5 bg-white text-slate-400 font-bold">&times;</button>
+      </div>
+      <div class="space-y-2.5 text-xs font-bold">
+        <input type="hidden" id="studyTaskScope" value="daily">
+        <div>
+          <label class="block text-slate-700 mb-1">Subject / Objective</label>
+          <input type="text" id="studyTaskTitle" placeholder="e.g. Revise Organic Reactions" class="w-full px-3 py-2 rounded-xl clay-inset focus:outline-none font-semibold">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-700 mb-1">Focus Type</label>
+            <select id="studyTaskTag" class="w-full px-2 py-2 rounded-xl clay-inset font-bold">
+              <option value="Lecture">📖 Lecture</option>
+              <option value="Revision">🧠 Revision</option>
+              <option value="Practice">✏️ Practice</option>
+              <option value="Assignment">📄 Assignment</option>
+              <option value="Exam">🎯 Exam</option>
+            </select>
+          </div>
+          <div id="studyTimeBox">
+            <label class="block text-slate-700 mb-1">Duration (Min)</label>
+            <input type="number" id="studyTaskMins" value="45" min="5" step="5" class="w-full px-3 py-2 rounded-xl clay-inset font-black focus:outline-none">
+          </div>
+          <div id="studyDateBox" class="hidden col-span-2">
+            <label class="block text-slate-700 mb-1">Target Date</label>
+            <input type="date" id="studyTaskDate" class="w-full px-3 py-2 rounded-xl clay-inset font-medium">
+          </div>
+        </div>
+        <div class="pt-2 flex justify-end space-x-2 border-t border-purple-200">
+          <button onclick="closeModal('studyTaskModal')" class="clay-btn px-3 py-1.5 bg-white text-slate-600">Cancel</button>
+          <button onclick="submitNewStudyTask()" class="clay-btn px-4 py-1.5 bg-purple-300 text-purple-950 font-black">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Blog Reader -->
+  <div id="blogModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 pointer-events-none hidden">
+    <div class="clay-card clay-white max-w-md w-full p-6 space-y-4 pointer-events-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+        <h4 class="text-sm font-black text-slate-800" id="blogModalTitle">Student Insights</h4>
+        <button onclick="closeModal('blogModal')" class="clay-btn px-2 py-0.5 bg-white text-slate-400 font-bold">&times;</button>
+      </div>
+      <div id="blogModalContent" class="text-xs font-semibold text-slate-600 space-y-3 leading-relaxed max-h-80 overflow-y-auto pr-1"></div>
+      <div class="pt-2 flex justify-end border-t border-slate-200">
+        <button onclick="closeModal('blogModal')" class="clay-btn px-4 py-1.5 bg-purple-300 text-purple-950 font-black text-xs">Got it!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Preferences / Settings -->
+  <div id="settingsModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 pointer-events-none hidden">
+    <div class="clay-card clay-white max-w-sm w-full p-5 space-y-4 pointer-events-auto">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+        <h4 class="text-sm font-black text-slate-800 flex items-center space-x-1.5">
+          <span>⚙️</span><span>Preferences</span>
+        </h4>
+        <button onclick="closeModal('settingsModal')" class="clay-btn px-2 py-0.5 bg-white text-slate-400 font-bold">&times;</button>
+      </div>
+      <div class="space-y-3 text-xs font-bold">
+        <div>
+          <label class="block text-slate-700 mb-1">Monthly Pocket Money</label>
+          <input type="number" id="settingsInpAllowance" class="w-full clay-inset py-2 px-3 font-black text-slate-800 focus:outline-none text-right">
+        </div>
+        <div>
+          <label class="block text-slate-700 mb-1">Target Savings</label>
+          <input type="number" id="settingsInpSavings" class="w-full clay-inset py-2 px-3 font-black text-slate-800 focus:outline-none text-right">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-700 mb-1">Period (Days)</label>
+            <input type="number" id="settingsInpDays" class="w-full clay-inset py-2 px-3 font-black text-slate-800 focus:outline-none text-center">
+          </div>
+          <div>
+            <label class="block text-slate-700 mb-1">Currency</label>
+            <select id="settingsCurrSelect" class="w-full clay-inset py-2 px-2 font-bold text-slate-800 focus:outline-none">
+              <option value="₹">₹ INR</option>
+              <option value="$">$ USD</option>
+              <option value="€">€ EUR</option>
+              <option value="£">£ GBP</option>
+              <option value="C$">C$ CAD</option>
+            </select>
+          </div>
+        </div>
+        <div class="pt-2 flex items-center justify-between border-t border-slate-200">
+          <button onclick="relaunchSetupWizard()" class="text-purple-800 font-black text-xs hover:underline">Reset Setup</button>
+          <button onclick="saveSettingsChanges()" class="clay-btn px-4 py-1.5 bg-purple-300 text-purple-950 font-black">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Jar -->
+  <div id="addJarModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 pointer-events-none hidden">
+    <div class="clay-card clay-matcha max-w-xs w-full p-5 space-y-3 pointer-events-auto">
+      <div class="flex items-center justify-between border-b border-emerald-200 pb-2">
+        <h4 class="text-xs font-black text-slate-800">New Wishlist Jar</h4>
+        <button onclick="closeModal('addJarModal')" class="clay-btn px-2 py-0.5 bg-white text-slate-400 font-bold">&times;</button>
+      </div>
+      <div class="space-y-2 text-xs font-bold">
+        <div>
+          <label class="block text-slate-700 mb-1">Target Name</label>
+          <input type="text" id="newJarName" placeholder="e.g. Earbuds, Trip" class="w-full px-3 py-2 rounded-xl clay-inset focus:outline-none font-semibold">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-700 mb-1">Target Amount</label>
+            <input type="number" id="newJarTarget" placeholder="2000" class="w-full px-3 py-2 rounded-xl clay-inset focus:outline-none font-black text-slate-800">
+          </div>
+          <div>
+            <label class="block text-slate-700 mb-1">Icon</label>
+            <select id="newJarIcon" class="w-full px-2 py-2 rounded-xl clay-inset font-bold">
+              <option value="🎧">🎧 Tech</option>
+              <option value="🏖️">🏖️ Trip</option>
+              <option value="🎟️">🎟️ Fest</option>
+              <option value="👟">👟 Shoes</option>
+            </select>
+          </div>
+        </div>
+        <div class="pt-2 flex justify-end space-x-2 border-t border-emerald-200">
+          <button onclick="closeModal('addJarModal')" class="clay-btn px-3 py-1.5 bg-white text-slate-600">Cancel</button>
+          <button onclick="submitNewJar()" class="clay-btn px-4 py-1.5 bg-emerald-300 text-emerald-950 font-black">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Chime Generator (Pure Web Audio API) -->
+  <script>
+    function playChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.6);
+      } catch (e) {
+        console.log("Audio not allowed yet", e);
+      }
+    }
+  </script>
+
+  <!-- Main JavaScript Engine -->
+  <script>
+    // --- Application State ---
+    let isSetupComplete = false;
+    let currency = "₹";
+    let totalDays = 30;
+    let monthlyAllowance = 0;
+    let targetSavings = 0;
+    let cycleStartDate = getTodayDateStr();
+    let userXp = 25;
+
+    let categories = {
+      food: { name: "Food & Canteen", icon: "🍱", budget: 0 },
+      study: { name: "Books & Study", icon: "📖", budget: 0 },
+      housing: { name: "Rent & PG", icon: "🏠", budget: 0 },
+      transit: { name: "Transit & Metro", icon: "🚇", budget: 0 },
+      fun: { name: "Fun & Outings", icon: "🎉", budget: 0 },
+      tech: { name: "Mobile & Tech", icon: "💻", budget: 0 }
+    };
+
+    let savingsJars = [];
+    let diaryTransactions = [];
+    let studyTasks = [];
+
+    // Pomodoro Timer State
+    let pomoSecondsRemaining = 25 * 60;
+    let pomoTimerInterval = null;
+    let isPomoRunning = false;
+    let pomoSessionsCount = 0;
+
+    const studentQuotes = [
+      "\"Do not save what is left after spending, but spend what is left after saving.\"",
+      "\"Small disciplines repeated with consistency every day lead to great achievements.\"",
+      "\"An investment in knowledge pays the best interest.\" — Benjamin Franklin",
+      "\"You do not rise to the level of your goals. You fall to the level of your systems.\""
+    ];
+
+    function getTodayDateStr() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    }
+
+    function saveToStorage() {
+      try {
+        const payload = {
+          isSetupComplete, currency, totalDays, monthlyAllowance, targetSavings,
+          cycleStartDate, categories, savingsJars, diaryTransactions, studyTasks, userXp
+        };
+        localStorage.setItem("studysprout_hub_v6", JSON.stringify(payload));
+      } catch (e) {
+        console.warn("Storage error", e);
+      }
+    }
+
+    function loadFromStorage() {
+      try {
+        const saved = localStorage.getItem("studysprout_hub_v6");
+        if (saved) {
+          const p = JSON.parse(saved);
+          if (p.isSetupComplete !== undefined) isSetupComplete = p.isSetupComplete;
+          if (p.currency) currency = p.currency;
+          if (p.totalDays) totalDays = p.totalDays;
+          if (p.monthlyAllowance !== undefined) monthlyAllowance = p.monthlyAllowance;
+          if (p.targetSavings !== undefined) targetSavings = p.targetSavings;
+          if (p.cycleStartDate) cycleStartDate = p.cycleStartDate;
+          if (p.categories) categories = p.categories;
+          if (p.savingsJars) savingsJars = p.savingsJars;
+          if (p.diaryTransactions) diaryTransactions = p.diaryTransactions;
+          if (p.studyTasks) studyTasks = p.studyTasks;
+          if (p.userXp !== undefined) userXp = p.userXp;
+        }
+      } catch (e) {
+        console.warn("Storage error", e);
+      }
+    }
+
+    function fmt(val) {
+      return `${currency}${Number(val).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function addXp(amount) {
+      userXp += amount;
+      renderXp();
+      saveToStorage();
+    }
+
+    function renderXp() {
+      const level = Math.floor(userXp / 100) + 1;
+      const progressInLevel = userXp % 100;
+      document.getElementById("userLevelBadge").textContent = `Lv. ${level} Scholar`;
+      document.getElementById("userXpBar").style.width = `${progressInLevel}%`;
+      document.getElementById("userXpText").textContent = `${progressInLevel}/100 XP`;
+    }
+
+    // --- Screen Transitions ---
+    function showScreen(num) {
+      document.getElementById("screenLanding").classList.toggle("hidden", num !== 0);
+      document.getElementById("screenSetup").classList.toggle("hidden", num !== 1);
+      document.getElementById("screenDashboard").classList.toggle("hidden", num !== 2);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function enterApplication() {
+      if (isSetupComplete && monthlyAllowance > 0) {
+        showScreen(2);
+        updateDashboardUI();
+      } else {
+        showScreen(1);
+        updateSetupPreview();
+      }
+    }
+
+    function showMotivationPreview() {
+      const randomQuote = studentQuotes[Math.floor(Math.random() * studentQuotes.length)];
+      document.getElementById("landingQuote").textContent = randomQuote;
+      playChime();
+    }
+
+    // --- Navigation Tabs ---
+    function switchTab(tab) {
+      const budgetView = document.getElementById("viewBudget");
+      const studyView = document.getElementById("viewStudy");
+      const investView = document.getElementById("viewInvest");
+      const tabBtnBudget = document.getElementById("tabBtnBudget");
+      const tabBtnStudy = document.getElementById("tabBtnStudy");
+      const tabBtnInvest = document.getElementById("tabBtnInvest");
+      const mainActionBtn = document.getElementById("mainActionBtn");
+      const mainActionBtnText = document.getElementById("mainActionBtnText");
+
+      [tabBtnBudget, tabBtnStudy, tabBtnInvest].forEach(b => {
+        b.className = "clay-btn px-3.5 py-2 bg-transparent text-slate-500 font-bold hover:text-purple-900";
+      });
+
+      budgetView.classList.add("hidden");
+      studyView.classList.add("hidden");
+      investView.classList.add("hidden");
+
+      if (tab === 'budget') {
+        budgetView.classList.remove("hidden");
+        tabBtnBudget.className = "clay-btn px-3.5 py-2 bg-white text-purple-950 font-black";
+        mainActionBtn.onclick = () => openModal('logSpendModal');
+        mainActionBtnText.textContent = "Log Spend";
+        mainActionBtn.className = "clay-btn px-4 py-2 bg-pink-300 text-pink-950 font-black text-xs flex items-center space-x-1";
+        updateDashboardUI();
+      } else if (tab === 'study') {
+        studyView.classList.remove("hidden");
+        tabBtnStudy.className = "clay-btn px-3.5 py-2 bg-white text-purple-950 font-black";
+        mainActionBtn.onclick = () => openStudyTaskModal('daily');
+        mainActionBtnText.textContent = "Add Task";
+        mainActionBtn.className = "clay-btn px-4 py-2 bg-purple-300 text-purple-950 font-black text-xs flex items-center space-x-1";
+        renderStudyPlanner();
+      } else {
+        investView.classList.remove("hidden");
+        tabBtnInvest.className = "clay-btn px-3.5 py-2 bg-white text-purple-950 font-black";
+        mainActionBtn.onclick = () => runCalculator();
+        mainActionBtnText.textContent = "Calculate";
+        mainActionBtn.className = "clay-btn px-4 py-2 bg-emerald-300 text-emerald-950 font-black text-xs flex items-center space-x-1";
+        runCalculator();
+      }
+    }
+
+    // --- Interactive Compounding Calculator ---
+    function runCalculator() {
+      const p = parseFloat(document.getElementById("calcMonthlyInp").value);
+      const rAnnual = parseFloat(document.getElementById("calcRateInp").value);
+      const y = parseInt(document.getElementById("calcYearsInp").value);
+
+      document.getElementById("calcAmtLabel").textContent = `${currency}${p.toLocaleString()}`;
+      document.getElementById("calcRateLabel").textContent = `${rAnnual}%`;
+      document.getElementById("calcYearsLabel").textContent = `${y} Year${y > 1 ? 's' : ''}`;
+
+      const i = (rAnnual / 100) / 12;
+      const n = y * 12;
+      
+      // Future Value of monthly SIP formula: M = P * [((1 + i)^n - 1) / i] * (1 + i)
+      const maturityValue = p * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+      const totalDeposited = p * n;
+      const profit = maturityValue - totalDeposited;
+
+      document.getElementById("calcTotalInvested").textContent = `${currency}${Math.round(totalDeposited).toLocaleString()}`;
+      document.getElementById("calcEstimatedProfit").textContent = `+${currency}${Math.round(profit).toLocaleString()}`;
+      document.getElementById("calcTotalValue").textContent = `${currency}${Math.round(maturityValue).toLocaleString()}`;
+    }
+
+    // --- Student Blog Modals ---
+    function readBlogModal(id) {
+      const title = document.getElementById("blogModalTitle");
+      const content = document.getElementById("blogModalContent");
+
+      if (id === 1) {
+        title.textContent = "The 48-Hour Cart Rule";
+        content.innerHTML = `
+          <p><strong>The Impulse Brain Hack:</strong> Every time you browse online shopping portals or canteen treats while stressed, your brain searches for quick dopamine.</p>
+          <p><strong>Action Step:</strong> Place items in a wishlist jar instead of instant checkout. Set an automatic calendar reminder 48 hours later. If you still genuinely need it and have remaining allowance room, buy it without guilt. In practice, 7 out of 10 cravings disappear once the initial emotional impulse fades.</p>
+        `;
+      } else if (id === 2) {
+        title.textContent = "Active Recall Over Passive Highlighting";
+        content.innerHTML = `
+          <p><strong>The Revision Trap:</strong> Rereading textbook chapters and highlighting neon lines feels productive, but research shows it yields almost zero long-term retention under exam pressure.</p>
+          <p><strong>Action Step:</strong> Turn chapter summaries into questions. Close your notes and test yourself using 25-minute Pomodoro sprints. If you cannot explain the concept aloud to an empty chair in 2 minutes, you haven't mastered it yet!</p>
+        `;
+      } else {
+        title.textContent = "The No-Spend Weekend Blueprint";
+        content.innerHTML = `
+          <p><strong>The Reset Habit:</strong> Discretionary spending tends to spike on Friday night through Sunday evening, quickly eating away up to 40% of monthly student pocket money.</p>
+          <p><strong>Action Step:</strong> Pick one weekend every month where your budget spend is $0. Cook meals with roommates using dorm groceries, head out for free campus sports, or plan library group revisions. You will immediately create a cushion for upcoming exams and wishlist jars!</p>
+        `;
+      }
+
+      openModal("blogModal");
+    }
+
+    // --- AI Mentor Drawer ---
+    function toggleAiDrawer() {
+      const drawer = document.getElementById("aiDrawer");
+      const backdrop = document.getElementById("modalBackdrop");
+      const isHidden = drawer.classList.contains("translate-x-full");
+
+      if (isHidden) {
+        drawer.classList.remove("translate-x-full");
+        backdrop.classList.remove("hidden");
+      } else {
+        drawer.classList.add("translate-x-full");
+        backdrop.classList.add("hidden");
+      }
+    }
+
+    function appendAiMessage(sender, text) {
+      const feed = document.getElementById("aiMessageFeed");
+      const bubble = document.createElement("div");
+      if (sender === "user") {
+        bubble.className = "p-2.5 rounded-2xl bg-purple-200 text-purple-950 font-bold ml-auto max-w-[85%] text-right";
+      } else {
+        bubble.className = "p-2.5 rounded-2xl bg-white text-slate-800 shadow-sm border border-purple-100 max-w-[90%]";
+      }
+      bubble.innerHTML = text;
+      feed.appendChild(bubble);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function runAiInsight(intent) {
+      const todayStr = getTodayDateStr();
+      const spentToday = diaryTransactions.filter(t => t.rawDate === todayStr).reduce((a, b) => a + Number(b.amount), 0);
+      const pendingTasks = studyTasks.filter(t => !t.completed).length;
+
+      if (intent === 'review') {
+        appendAiMessage("bot", `🌱 <strong>Sprout Status Report:</strong><br>• Spent today: <strong>${fmt(spentToday)}</strong><br>• Pending Syllabus Goals: <strong>${pendingTasks} tasks</strong>.<br>Advice: Protect your daily allowance to fund your compounding goals!`);
+      } else if (intent === 'saveTip') {
+        appendAiMessage("bot", `💡 <strong>Micro-Saving Tip:</strong><br>Always ask for student ID discounts on tech, subscriptions, and transit passes. Saving ~${currency}300 a month compounding at 12% yields huge returns!`);
+      } else if (intent === 'studySchedule') {
+        appendAiMessage("bot", `⚡ <strong>Pomodoro Study Strategy:</strong><br>Start with the hardest assignment when your willpower is highest. You have ${studyTasks.filter(t => t.scope === 'daily').length} daily tasks queued.`);
+      }
+    }
+
+    function handleAiSend() {
+      const inp = document.getElementById("aiUserInput");
+      const val = inp.value.trim();
+      if (!val) return;
+
+      appendAiMessage("user", val);
+      inp.value = "";
+
+      setTimeout(() => {
+        const query = val.toLowerCase();
+        if (query.includes("exam") || query.includes("study") || query.includes("test")) {
+          appendAiMessage("bot", "📖 Active recall & short Pomodoro cycles beat cramming all night. Check your daily study priority list!");
+        } else if (query.includes("money") || query.includes("invest") || query.includes("save") || query.includes("sip")) {
+          appendAiMessage("bot", `💰 Check our new Invest & Learn tab! Starting a small SIP with your target savings teaches discipline before graduation.`);
+        } else {
+          appendAiMessage("bot", "✨ Consistent small habits make top grades and healthy bank accounts easy! Complete a study task to earn XP.");
+        }
+      }, 500);
+    }
+
+    // --- Pomodoro Focus Timer ---
+    function updatePomoDisplay() {
+      const m = Math.floor(pomoSecondsRemaining / 60);
+      const s = pomoSecondsRemaining % 60;
+      document.getElementById("pomoTimerDisplay").textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function togglePomodoro() {
+      const btn = document.getElementById("pomoToggleBtn");
+      if (isPomoRunning) {
+        clearInterval(pomoTimerInterval);
+        isPomoRunning = false;
+        btn.textContent = "Resume Focus";
+        btn.className = "clay-btn px-5 py-2 bg-emerald-300 text-emerald-950 font-black text-xs";
+      } else {
+        isPomoRunning = true;
+        btn.textContent = "Pause";
+        btn.className = "clay-btn px-5 py-2 bg-amber-200 text-amber-950 font-black text-xs";
+        pomoTimerInterval = setInterval(() => {
+          if (pomoSecondsRemaining > 0) {
+            pomoSecondsRemaining--;
+            updatePomoDisplay();
+          } else {
+            clearInterval(pomoTimerInterval);
+            isPomoRunning = false;
+            pomoSessionsCount++;
+            playChime();
+            addXp(35);
+            document.getElementById("pomoStreakLabel").textContent = `Completed sessions: ${pomoSessionsCount}`;
+            alert("🎉 Great session! Take a 5-minute breather. (+35 XP)");
+            pomoSecondsRemaining = 25 * 60;
+            updatePomoDisplay();
+            btn.textContent = "Start Focus";
+          }
+        }, 1000);
+      }
+    }
+
+    function resetPomodoro() {
+      clearInterval(pomoTimerInterval);
+      isPomoRunning = false;
+      pomoSecondsRemaining = 25 * 60;
+      updatePomoDisplay();
+      document.getElementById("pomoToggleBtn").textContent = "Start Focus";
+    }
+
+    // --- Study Planner Features ---
+    function openStudyTaskModal(scope) {
+      document.getElementById("studyTaskScope").value = scope;
+      const heading = document.getElementById("studyModalHeading");
+      const timeBox = document.getElementById("studyTimeBox");
+      const dateBox = document.getElementById("studyDateBox");
+      
+      if (scope === 'daily') {
+        heading.textContent = "Add Daily Focus Task";
+        timeBox.classList.remove("hidden");
+        dateBox.classList.add("hidden");
+      } else if (scope === 'weekly') {
+        heading.textContent = "Add Weekly Milestone";
+        timeBox.classList.add("hidden");
+        dateBox.classList.remove("hidden");
+      } else {
+        heading.textContent = "Add Monthly Target / Exam";
+        timeBox.classList.add("hidden");
+        dateBox.classList.remove("hidden");
+      }
+
+      document.getElementById("studyTaskTitle").value = "";
+      document.getElementById("studyTaskDate").value = getTodayDateStr();
+      openModal('studyTaskModal');
+    }
+
+    function submitNewStudyTask() {
+      const scope = document.getElementById("studyTaskScope").value;
+      const title = document.getElementById("studyTaskTitle").value.trim();
+      const tag = document.getElementById("studyTaskTag").value;
+      const mins = parseInt(document.getElementById("studyTaskMins").value) || 30;
+      const date = document.getElementById("studyTaskDate").value;
+
+      if (!title) return;
+
+      studyTasks.push({
+        id: Date.now(),
+        scope,
+        title,
+        tag,
+        mins,
+        date: date || getTodayDateStr(),
+        completed: false
+      });
+
+      addXp(15);
+      saveToStorage();
+      closeModal('studyTaskModal');
+      renderStudyPlanner();
+    }
+
+    function toggleStudyTask(id) {
+      const task = studyTasks.find(t => t.id === id);
+      if (task) {
+        task.completed = !task.completed;
+        if (task.completed) {
+          playChime();
+          addXp(20);
+        }
+        saveToStorage();
+        renderStudyPlanner();
+      }
+    }
+
+    function deleteStudyTask(id) {
+      studyTasks = studyTasks.filter(t => t.id !== id);
+      saveToStorage();
+      renderStudyPlanner();
+    }
+
+    function renderStudyPlanner() {
+      const dailyContainer = document.getElementById("dailyStudyList");
+      const weeklyContainer = document.getElementById("weeklyStudyList");
+      const monthlyContainer = document.getElementById("monthlyStudyList");
+
+      dailyContainer.innerHTML = "";
+      weeklyContainer.innerHTML = "";
+      monthlyContainer.innerHTML = "";
+
+      const daily = studyTasks.filter(t => t.scope === 'daily');
+      const weekly = studyTasks.filter(t => t.scope === 'weekly');
+      const monthly = studyTasks.filter(t => t.scope === 'monthly');
+
+      const dailyDone = daily.filter(t => t.completed).length;
+      document.getElementById("studyStatDaily").textContent = `${dailyDone}/${daily.length}`;
+      document.getElementById("studyStatWeekly").textContent = `${weekly.filter(t => !t.completed).length}`;
+      document.getElementById("studyStatMonthly").textContent = `${monthly.filter(t => !t.completed).length}`;
+
+      function appendTasks(list, container, emptyMsg, badgeClass) {
+        if (list.length === 0) {
+          container.innerHTML = `<div class="text-center py-6 text-xs text-slate-400 font-bold">${emptyMsg}</div>`;
+          return;
+        }
+
+        list.forEach(item => {
+          const el = document.createElement("div");
+          el.className = `p-3 rounded-2xl bg-white/90 clay-card flex items-center justify-between text-xs transition-all ${item.completed ? 'opacity-50' : ''}`;
+          el.innerHTML = `
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleStudyTask(${item.id})" class="rounded text-purple-600 focus:ring-0 cursor-pointer w-4 h-4">
+              <div>
+                <p class="font-black text-slate-800 ${item.completed ? 'line-through text-slate-400' : ''}">${item.title}</p>
+                <div class="flex items-center space-x-2 mt-0.5">
+                  <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${badgeClass}">${item.tag}</span>
+                  ${item.scope === 'daily' ? `<span class="text-[10px] font-bold text-slate-400">⏱️ ${item.mins}m</span>` : `<span class="text-[10px] font-bold text-slate-400">📅 ${item.date}</span>`}
+                </div>
+              </div>
+            </div>
+            <button onclick="deleteStudyTask(${item.id})" class="text-slate-300 hover:text-rose-500 font-black px-1 text-sm">&times;</button>
+          `;
+          container.appendChild(el);
+        });
+      }
+
+      appendTasks(daily, dailyContainer, "No daily tasks logged yet.", "clay-matcha text-emerald-900");
+      appendTasks(weekly, weeklyContainer, "No weekly goals added.", "clay-sky text-sky-950");
+      appendTasks(monthly, monthlyContainer, "No monthly targets set.", "clay-peach text-amber-950");
+    }
+
+    // --- Setup Wizard ---
+    function setSetupCurrency(newCurr) {
+      currency = newCurr;
+      document.getElementById("setupCurr1").textContent = newCurr;
+      document.getElementById("setupCurr2").textContent = newCurr;
+      updateSetupPreview();
+    }
+
+    function applySetupSavings(pct) {
+      const a = parseFloat(document.getElementById("setupInpAllowance").value) || 0;
+      if (a <= 0) return;
+      document.getElementById("setupInpSavings").value = Math.round((a * pct) / 100);
+      updateSetupPreview();
+    }
+
+    function updateSetupPreview() {
+      const a = parseFloat(document.getElementById("setupInpAllowance").value) || 0;
+      const s = parseFloat(document.getElementById("setupInpSavings").value) || 0;
+      const d = parseInt(document.getElementById("setupInpDays").value, 10) || 30;
+      const spendable = Math.max(0, a - s);
+      const daily = d > 0 ? (spendable / d) : 0;
+      document.getElementById("setupPreviewPill").textContent = `${fmt(daily)}/day`;
+    }
+
+    function launchBudgetDiary() {
+      const a = parseFloat(document.getElementById("setupInpAllowance").value) || 0;
+      const s = parseFloat(document.getElementById("setupInpSavings").value) || 0;
+      const d = parseInt(document.getElementById("setupInpDays").value, 10) || 30;
+
+      if (a <= 0) {
+        alert("Please enter your allowance to begin!");
+        return;
+      }
+
+      monthlyAllowance = a;
+      targetSavings = s;
+      totalDays = d;
+      cycleStartDate = getTodayDateStr();
+      isSetupComplete = true;
+
+      saveToStorage();
+      showScreen(2);
+      updateDashboardUI();
+    }
+
+    // --- Dashboard Spend Engine ---
+    function updateDashboardUI() {
+      const todayStr = getTodayDateStr();
+      const start = new Date(cycleStartDate);
+      const today = new Date(todayStr);
+      const diffDays = Math.max(0, Math.floor((today - start) / (1000 * 60 * 60 * 24)));
+      const currentDayNumber = Math.min(totalDays, diffDays + 1);
+      const daysRemaining = Math.max(1, totalDays - diffDays);
+
+      document.getElementById("cycleBadge").textContent = `Day ${currentDayNumber} of ${totalDays}`;
+
+      let totalMonthSpent = 0;
+      let spentToday = 0;
+      let needsSpent = 0;
+      let wantsSpent = 0;
+      const catSpent = {};
+      Object.keys(categories).forEach(k => catSpent[k] = 0);
+
+      diaryTransactions.forEach(t => {
+        const amt = Number(t.amount);
+        totalMonthSpent += amt;
+        if (t.rawDate === todayStr) spentToday += amt;
+        if (catSpent[t.category] !== undefined) catSpent[t.category] += amt;
+        if (t.tag === 'Need') needsSpent += amt;
+        else if (t.tag === 'Want') wantsSpent += amt;
+      });
+
+      const spendablePool = Math.max(0, monthlyAllowance - targetSavings);
+      const remainingPool = Math.max(0, spendablePool - totalMonthSpent);
+      const dailyAllowance = daysRemaining > 0 ? (remainingPool / daysRemaining) : 0;
+      const leftToday = Math.max(0, dailyAllowance - spentToday);
+
+      document.getElementById("dispTodayAllowance").textContent = fmt(dailyAllowance);
+      document.getElementById("dispTodayLeft").textContent = `Left: ${fmt(leftToday)}`;
+      document.getElementById("dispSpentToday").textContent = fmt(spentToday);
+      document.getElementById("dispSavingsStash").textContent = fmt(targetSavings);
+      document.getElementById("dispRemainingPool").textContent = fmt(remainingPool);
+      document.getElementById("dispTotalSpent").textContent = `Spent: ${fmt(totalMonthSpent)}`;
+
+      document.getElementById("bobaSafeAmount").textContent = `${fmt(leftToday)} Left`;
+      const fillPct = dailyAllowance > 0 ? Math.min(100, Math.max(5, Math.round((leftToday / dailyAllowance) * 100))) : 0;
+      document.getElementById("bobaBar").style.width = `${fillPct}%`;
+
+      document.getElementById("valNeeds").textContent = fmt(needsSpent);
+      document.getElementById("valWants").textContent = fmt(wantsSpent);
+
+      renderCategoryList(catSpent);
+      renderSavingsJars();
+      renderDiary();
+      renderXp();
+    }
+
+    function updateCategoryBudget(catKey, newVal) {
+      const val = parseFloat(newVal);
+      if (!isNaN(val) && val >= 0) {
+        categories[catKey].budget = val;
+        saveToStorage();
+        updateDashboardUI();
+      }
+    }
+
+    function renderCategoryList(catSpent) {
+      const container = document.getElementById("categoryCardsList");
+      if (!container) return;
+      container.innerHTML = "";
+
+      Object.entries(categories).forEach(([key, cat]) => {
+        const spent = catSpent[key] || 0;
+        const budget = cat.budget || 0;
+        const pct = budget > 0 ? Math.min(100, Math.round((spent / budget) * 100)) : 0;
+
+        const row = document.createElement("div");
+        row.className = "p-2.5 rounded-2xl bg-white/80 clay-inset space-y-1.5";
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-bold">
+            <span class="flex items-center space-x-1.5">
+              <span>${cat.icon}</span>
+              <span class="text-slate-800">${cat.name}</span>
+            </span>
+            <div class="flex items-center space-x-1">
+              <span>${fmt(spent)}</span>
+              <span class="text-slate-400">/</span>
+              <input type="number" min="0" step="50" value="${budget}" 
+                     oninput="updateCategoryBudget('${key}', this.value)"
+                     placeholder="0"
+                     class="w-12 text-right font-black text-xs text-purple-900 bg-white rounded-lg px-1 focus:outline-none clay-card">
+            </div>
+          </div>
+          <div class="w-full clay-inset rounded-full h-2 overflow-hidden">
+            <div class="h-2 rounded-full bg-purple-400 transition-all duration-300" style="width: ${pct}%;"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function renderSavingsJars() {
+      const container = document.getElementById("savingsJarsList");
+      if (!container) return;
+      container.innerHTML = "";
+
+      if (savingsJars.length === 0) {
+        container.innerHTML = `<div class="text-center py-4 text-xs text-pink-800/60 font-bold">No jars yet. Click + New Jar</div>`;
+        return;
+      }
+
+      savingsJars.forEach(jar => {
+        const pct = Math.min(100, Math.round((jar.saved / jar.target) * 100));
+        const card = document.createElement("div");
+        card.className = "p-3 rounded-2xl bg-white clay-card space-y-1.5 text-xs";
+        card.innerHTML = `
+          <div class="flex items-center justify-between font-bold">
+            <span class="flex items-center space-x-1.5">
+              <span>${jar.icon}</span>
+              <span class="text-slate-800">${jar.name}</span>
+            </span>
+            <span class="text-pink-900 font-black">${fmt(jar.saved)} <span class="text-slate-400 font-normal">/ ${fmt(jar.target)}</span></span>
+          </div>
+          <div class="w-full clay-inset rounded-full h-2 overflow-hidden">
+            <div class="bg-pink-400 h-2 rounded-full transition-all duration-300" style="width: ${pct}%;"></div>
+          </div>
+          <div class="flex justify-end space-x-1 pt-1">
+            <button onclick="depositToJar('${jar.id}', 100)" class="clay-btn px-2.5 py-1 bg-pink-100 text-pink-900 font-black text-[10px]">+ 100</button>
+            <button onclick="depositToJar('${jar.id}', 500)" class="clay-btn px-2.5 py-1 bg-pink-100 text-pink-900 font-black text-[10px]">+ 500</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function depositToJar(id, amount) {
+      const j = savingsJars.find(item => item.id === id);
+      if (j) {
+        j.saved = Math.min(j.target, j.saved + amount);
+        playChime();
+        addXp(10);
+        saveToStorage();
+        updateDashboardUI();
+      }
+    }
+
+    function renderDiary() {
+      const q = (document.getElementById("diarySearch")?.value || "").toLowerCase();
+      const filterCat = document.getElementById("diaryCategoryFilter")?.value || "all";
+      const container = document.getElementById("diaryListContainer");
+      if (!container) return;
+
+      const todayStr = getTodayDateStr();
+      const filtered = diaryTransactions.filter(t => {
+        if (filterCat !== "all" && t.category !== filterCat) return false;
+        if (q && !t.title.toLowerCase().includes(q)) return false;
+        return true;
+      });
+
+      container.innerHTML = "";
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="text-center py-6 text-xs text-sky-900/60 font-bold">No expenses logged yet.</div>`;
+        return;
+      }
+
+      filtered.forEach(t => {
+        const cat = categories[t.category] || { icon: "🏷️", name: t.category };
+        const isToday = t.rawDate === todayStr;
+
+        const row = document.createElement("div");
+        row.className = "flex items-center justify-between p-2.5 rounded-2xl bg-white/90 clay-card text-xs";
+        row.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <span>${cat.icon}</span>
+            <div>
+              <div class="flex items-center space-x-1.5">
+                <span class="font-black text-slate-800">${t.title}</span>
+                <span class="text-[10px] font-black px-1.5 rounded-full ${t.tag === 'Need' ? 'clay-sky text-sky-900' : 'clay-strawberry text-pink-900'}">${t.tag}</span>
+                ${isToday ? '<span class="text-[10px] font-black px-1.5 rounded-full clay-matcha text-emerald-900">Today</span>' : ''}
+              </div>
+              <span class="text-[10px] text-slate-400 font-bold">${t.displayDate}</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="font-black text-slate-800">-${fmt(t.amount)}</span>
+            <button onclick="deleteDiaryEntry(${t.id})" class="text-slate-300 hover:text-rose-500 font-black text-sm">&times;</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function deleteDiaryEntry(id) {
+      diaryTransactions = diaryTransactions.filter(t => t.id !== id);
+      saveToStorage();
+      updateDashboardUI();
+    }
+
+    function submitNewSpend() {
+      const title = document.getElementById("newSpendTitle").value.trim();
+      const amount = parseFloat(document.getElementById("newSpendAmount").value);
+      const category = document.getElementById("newSpendCategory").value;
+      const tag = document.querySelector('input[name="newSpendTag"]:checked')?.value || "Need";
+
+      if (!title || isNaN(amount) || amount <= 0) return;
+
+      const now = new Date();
+      diaryTransactions.unshift({
+        id: Date.now(),
+        title,
+        amount,
+        category,
+        tag,
+        rawDate: getTodayDateStr(),
+        displayDate: now.toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })
+      });
+
+      addXp(10);
+      document.getElementById("newSpendTitle").value = "";
+      document.getElementById("newSpendAmount").value = "";
+      closeModal("logSpendModal");
+      saveToStorage();
+      updateDashboardUI();
+    }
+
+    function submitNewJar() {
+      const name = document.getElementById("newJarName").value.trim();
+      const target = parseFloat(document.getElementById("newJarTarget").value);
+      const icon = document.getElementById("newJarIcon").value;
+
+      if (!name || isNaN(target) || target <= 0) return;
+
+      savingsJars.push({
+        id: "j_" + Date.now(),
+        name,
+        icon,
+        target,
+        saved: 0
+      });
+
+      document.getElementById("newJarName").value = "";
+      document.getElementById("newJarTarget").value = "";
+      closeModal("addJarModal");
+      saveToStorage();
+      updateDashboardUI();
+    }
+
+    // --- Modal Management ---
+    function openModal(id) {
+      if (id === 'settingsModal') {
+        document.getElementById("settingsInpAllowance").value = monthlyAllowance;
+        document.getElementById("settingsInpSavings").value = targetSavings;
+        document.getElementById("settingsInpDays").value = totalDays;
+        document.getElementById("settingsCurrSelect").value = currency;
+      }
+      document.getElementById("modalBackdrop").classList.remove("hidden");
+      document.getElementById(id)?.classList.remove("hidden");
+    }
+
+    function closeModal(id) {
+      document.getElementById(id)?.classList.add("hidden");
+      if (document.getElementById("aiDrawer").classList.contains("translate-x-full")) {
+        document.getElementById("modalBackdrop").classList.add("hidden");
+      }
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll('#logSpendModal, #studyTaskModal, #settingsModal, #addJarModal, #blogModal').forEach(el => el.classList.add("hidden"));
+      document.getElementById("aiDrawer").classList.add("translate-x-full");
+      document.getElementById("modalBackdrop").classList.add("hidden");
+    }
+
+    function saveSettingsChanges() {
+      const a = parseFloat(document.getElementById("settingsInpAllowance").value);
+      const s = parseFloat(document.getElementById("settingsInpSavings").value);
+      const d = parseInt(document.getElementById("settingsInpDays").value, 10);
+      const c = document.getElementById("settingsCurrSelect").value;
+
+      if (!isNaN(a) && a >= 0) monthlyAllowance = a;
+      if (!isNaN(s) && s >= 0) targetSavings = s;
+      if (!isNaN(d) && d > 0) totalDays = d;
+      if (c) currency = c;
+
+      saveToStorage();
+      closeModal("settingsModal");
+      updateDashboardUI();
+    }
+
+    function relaunchSetupWizard() {
+      closeAllModals();
+      showScreen(1);
+      document.getElementById("setupInpAllowance").value = monthlyAllowance;
+      document.getElementById("setupInpSavings").value = targetSavings;
+      document.getElementById("setupInpDays").value = totalDays;
+      document.getElementById("setupCurrSelect").value = currency;
+      updateSetupPreview();
+    }
+
+    // --- App Bootstrapping ---
+    window.addEventListener("DOMContentLoaded", () => {
+      loadFromStorage();
+      updatePomoDisplay();
+      // Always show landing page first on fresh session/open
+      showScreen(0);
+    });
+  </script>
+</body>
+</html>
